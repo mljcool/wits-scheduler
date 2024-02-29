@@ -1,0 +1,251 @@
+<div *ngIf="view">
+        <div class="flex-row text-center scheduler-header-row">
+          <div class="flex-basis-auto view-nav-col">
+            <span class="next-prev view-nav"
+                  mwlCalendarPreviousView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="calNextPreviousClicked()">
+              <i class="fa fa-angle-left"></i>
+            </span>
+            <span class="today view-nav"
+                  mwlCalendarToday
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="setViewDateToday()">
+              Today
+            </span>
+            <span class="next-prev view-nav"
+                  mwlCalendarNextView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="calNextPreviousClicked()">
+              <i class="fa fa-angle-right"></i>
+            </span>
+          </div>
+          <div class="flex-basis-auto">
+            <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+          </div>
+          <div class="flex-basis-auto view-type-col">
+            <mat-button-toggle-group name="calendarView" aria-label="Calendar View" value="All">
+              <mat-button-toggle value="CalendarView.Day" (click)="setView(CalendarView.Day)">Day</mat-button-toggle>
+              <mat-button-toggle value="CalendarView.Week" (click)="setView(CalendarView.Week)">Week</mat-button-toggle>
+              <mat-button-toggle value="CalendarView.Month" (click)="setView(CalendarView.Month)">Month</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </div>
+      
+      <div [ngSwitch]="view">
+          <mwl-calendar-month-view *ngSwitchCase="'month'"
+                                   [viewDate]="viewDate"
+                                   [events]="events"
+                                   [refresh]="refresh"
+                                   (eventTimesChanged)="eventTimesChanged($event)"
+                                   [activeDayIsOpen]="activeDayIsOpen"
+                                   [openDayEventsTemplate]="customEventsPanelTemplate"
+                                   (dayClicked)="dayClicked($event.day)"
+                                   [cellTemplate]="customCellTemplate">
+          </mwl-calendar-month-view>
+          <mwl-calendar-week-view *ngSwitchCase="'week'"
+                                  [viewDate]="viewDate"
+                                  [events]="events"
+                                  [refresh]="refresh"
+                                  (eventTimesChanged)="eventTimesChanged($event)"
+                                  [eventTemplate]="customDayWeekViewEventTemplate"
+                                  [hourSegments]="interval"
+                                  (beforeViewRender)="beforeWeekOrDayViewRender($event)"
+                                  (hourSegmentClicked)="timeSelected($event.date)"
+                                  [hourSegmentTemplate]="customHourSegmentTemplate">
+          </mwl-calendar-week-view>
+          <div *ngSwitchCase="'day'">
+            <div *ngIf="users?.length">
+              <app-day-view-scheduler [viewDate]="viewDate"
+                                      [events]="events"
+                                      [users]="users"
+                                      (userChanged)="userChanged($event)"
+                                      (eventTimesChanged)="eventTimesChanged($event)"
+                                      (eventActionPerformed)="handleEventFromDayViewScheduler($event)"
+                                      [canMoveAppointments]="canMoveAppointments"
+                                      [refresh]="refresh"
+                                      [interval]="interval"
+                                      (beforeViewRender)="beforeWeekOrDayViewRender($event)"
+                                      (hourSegmentClicked)="timeSelected($event.date)"
+                                      [hourSegmentTemplate]="customHourSegmentTemplate"></app-day-view-scheduler>
+            </div>
+            <mwl-calendar-day-view *ngIf="!users?.length"
+                                   [viewDate]="viewDate"
+                                   [events]="events"
+                                   [refresh]="refresh"
+                                   (eventTimesChanged)="eventTimesChanged($event)"
+                                   [eventTemplate]="customDayWeekViewEventTemplate"
+                                   (beforeViewRender)="beforeWeekOrDayViewRender($event)"
+                                   [hourSegments]="interval">
+            </mwl-calendar-day-view>
+          </div>
+        </div>
+      
+        <!--Template for month view expanded open events panel-->
+      <ng-template #customEventsPanelTemplate
+                     let-date="date"
+                     let-locale="locale"
+                     let-events="events"
+                     let-eventClicked="eventClicked"
+                     let-isOpen="isOpen"
+                     let-trackByEventId="trackByEventId"
+                     let-validateDrag="validateDrag">
+        <div class="cal-open-day-events"
+               [@collapse]
+               *ngIf="isOpen"
+               role="application">
+            <div class="flex-row user-events">
+              <div class="flex-grow-1 user-event" *ngFor="let user of users | showUsersEventsFilter : events">
+                <div *ngIf="users && users.length > 1" class="user-name">{{user.name}}</div>
+                <div *ngFor="let event of events | userEventFilter: user; trackBy: trackByEventId"
+                     [ngClass]="event?.cssClass"
+                     mwlDraggable
+                     [class.cal-draggable]="event.draggable"
+                     dragActiveClass="cal-drag-active"
+                     [dropData]="{ event: event }"
+                     [dragAxis]="{ x: event.draggable, y: event.draggable }"
+                     [validateDrag]="validateDrag"
+                     [touchStartLongPress]="{ delay: 300, delta: 30 }">
+                  <span class="cal-event"
+                        [ngStyle]="{ backgroundColor: event.color?.primary }">
+                  </span>
+                  <mwl-calendar-event-title [matMenuTriggerFor]="calOpenEventsMenu"
+                                            #trigger="matMenuTrigger"
+                                            (click)="openMenu(trigger)"
+                                            [event]="event"
+                                            view="month"
+                                            tabindex="0"
+                                            [attr.aria-label]="{ event: event, locale: locale } | calendarA11y: 'eventDescription'">
+                  </mwl-calendar-event-title>
+                  <mwl-calendar-event-actions [event]="event">
+                  </mwl-calendar-event-actions>
+                  <mat-menu #calOpenEventsMenu="matMenu">
+                    <app-event-tooltip [event]="event"
+                                       [users]="users"
+                                       [canMoveAppointments]="canMoveAppointments"
+                                       (eventDeleted)="handleEvent('Deleted', event)"
+                                       (eventEdited)="handleEvent('Edited', event)"
+                                       (closePopup)="closeMenu()"
+                                       (reassignEvent)="handleEvent('Reassigned', event)"></app-event-tooltip>
+                  </mat-menu>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      
+        <!--Template for events shown on day and week view-->
+        <ng-template #customDayWeekViewEventTemplate
+                     let-weekEvent="weekEvent"
+                     let-column="column">
+          <div class="cal-event"
+               [matMenuTriggerFor]="calWeekDayEventsMenu"
+               #trigger="matMenuTrigger"
+               (click)="openMenu(trigger)"
+               [ngStyle]="{
+                backgroundColor: weekEvent.event.color?.secondary,
+                borderColor: weekEvent.event.color?.primary
+              }">
+            <mwl-calendar-event-actions [event]="weekEvent.event">
+            </mwl-calendar-event-actions>
+            &ngsp;
+            <mwl-calendar-event-title [event]="weekEvent.event" view="week">
+            </mwl-calendar-event-title>
+          </div>
+          <mat-menu #calWeekDayEventsMenu="matMenu">
+            <app-event-tooltip [event]="weekEvent.event"
+                               [users]="users"
+                               [canMoveAppointments]="canMoveAppointments"
+                               (eventDeleted)="handleEvent('Deleted', weekEvent.event)"
+                               (eventEdited)="handleEvent('Edited', weekEvent.event)"
+                               (closePopup)="closeMenu()"
+                               (reassignEvent)="handleEvent('Reassigned', weekEvent.event)"></app-event-tooltip>
+          </mat-menu>
+        </ng-template>
+      
+      <!--Template for hour segment shown on day and week view-->
+      <ng-template
+        #customHourSegmentTemplate
+        let-segment="segment"
+        let-locale="locale"
+        let-segmentHeight="segmentHeight"
+        let-isTimeLabel="isTimeLabel"
+        let-daysInWeek="daysInWeek">
+        <div
+          [attr.aria-hidden]="
+                {}
+                  | calendarA11y
+                    : (daysInWeek === 1
+                        ? 'hideDayHourSegment'
+                        : 'hideWeekHourSegment')
+              "
+          class="cal-hour-segment"
+          (dblclick)="addEventAtTimeSlot(segment)"
+          [style.height.px]="segmentHeight"
+          [class.cal-hour-start]="segment.isStart"
+          [class.cal-after-hour-start]="!segment.isStart"
+          [ngClass]="segment.cssClass">
+          <div class="cal-time" *ngIf="isTimeLabel">
+            {{
+            segment.displayDate
+            | calendarDate
+            : (daysInWeek === 1 ? 'dayViewHour' : 'weekViewHour')
+            : locale
+            }}
+          </div>
+        </div>
+      </ng-template>
+      
+      
+      <!--Template for month cells-->
+        <ng-template #customCellTemplate
+                     let-day="day"
+                     let-openDay="openDay"
+                     let-locale="locale"
+                     let-highlightDay="highlightDay"
+                     let-unhighlightDay="unhighlightDay"
+                     let-eventClicked="eventClicked"
+                     let-trackByEventId="trackByEventId"
+                     let-validateDrag="validateDrag">
+          <div class="cal-cell-top" [attr.aria-label]="{ day: day, locale: locale } | calendarA11y: 'monthCell'" (dblclick)="addEventAtTimeSlot(day)">
+            <span aria-hidden="true">
+              <span class="cal-day-number">
+                {{day.date | calendarDate: 'monthViewDayNumber':locale}}
+              </span>
+            </span>
+          </div>
+          <div class="cal-events" *ngIf="day.events.length > 0" (dblclick)="addEventAtTimeSlot(day)">
+            <div class="month-cell-user-events" *ngFor="let user of users | showUsersEventsFilter : day.events">
+              <span *ngIf="users && users.length > 1" class="user-initials">{{user.initials}}:</span>
+              <div *ngFor="let event of day.events | userEventFilter: user; trackBy: trackByEventId">
+                <div class="cal-event"
+                     [matMenuTriggerFor]="calMonthCellEventsMenu"
+                     #trigger="matMenuTrigger"
+                     (click)="openMenu(trigger)"
+                     [ngStyle]="{ backgroundColor: event.color?.primary }"
+                     mwlDraggable
+                     [class.cal-draggable]="event.draggable"
+                     dragActiveClass="cal-drag-active"
+                     [dropData]="{ event: event, draggedFrom: day }"
+                     [dragAxis]="{ x: event.draggable, y: event.draggable }"
+                     [validateDrag]="validateDrag"
+                     [touchStartLongPress]="{ delay: 300, delta: 30 }"
+                     [attr.aria-hidden]="{} | calendarA11y: 'hideMonthCellEvents'">
+                </div>
+                <mat-menu #calMonthCellEventsMenu="matMenu">
+                  <app-event-tooltip [event]="event"
+                                     [users]="users"
+                                     [canMoveAppointments]="canMoveAppointments"
+                                     (eventDeleted)="handleEvent('Deleted', event)"
+                                     (eventEdited)="handleEvent('Edited', event)"
+                                     (closePopup)="closeMenu()"
+                                     (reassignEvent)="handleEvent('Reassigned', event)"></app-event-tooltip>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      

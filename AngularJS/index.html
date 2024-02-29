@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="schedulerApp">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles/angular-elements.css" />
+		<title>Document</title>
+	</head>
+	<body ng-controller="schedulerCtrl">
+
+		<app-scheduler-wrapper
+			ng-prop-default_view="defaultView"
+			ng-prop-events="events"
+			ng-prop-users="users"
+			ng-prop-view_date="selectedDate._d"
+			ng-prop-can_move_appointments="canMoveAppointments"
+			ng-prop-interval="interval"
+			ng-on-day_selected_change="daySelectedChange(data, $event)"
+			ng-on-event_action_performed="eventActionPerformed(data, $event)"
+			ng-on-view_date_changed="viewDateChanged(data, $event)"
+		>
+		</app-scheduler-wrapper>
+	</body>
+	<script defer src="./elements/elements.js"></script>
+	<script defer src="./scripts/ALASK_DATA.js"></script>
+	<script defer src="./scripts/angular.js"></script>
+	<script defer src="./scripts/schedulerCtrl.js"></script>
+</html>

@@ -1,0 +1,12 @@
+
+	<app-scheduler-wrapper
+		[defaultView]="defaultView"
+		[events]="events"
+		[users]="users"
+		[viewDate]="selectedDate._d"
+		[canMoveAppointments]="canMoveAppointments"
+		[interval]="interval"
+		(daySelectedChange)="daySelectedChange(data, $event)"
+		(eventActionPerformed)="eventActionPerformed(data, $event)"
+		(viewDateChanged)="viewDateChanged(data, $event)"
+	></app-scheduler-wrapper>

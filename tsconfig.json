@@ -1,0 +1,38 @@
+{
+        "exclude": ["./node_modules/"],
+        "compileOnSave": false,
+        "compilerOptions": {
+          "forceConsistentCasingInFileNames": false,
+          "baseUrl": ".",
+          "rootDir": "./src",
+          "outDir": "./dist/out-tsc",
+          "sourceMap": true,
+          "sourceRoot": "./src",
+          "declaration": false,
+          "downlevelIteration": true,
+          "experimentalDecorators": true,
+          "resolveJsonModule": true,
+          "module": "esnext",
+          "esModuleInterop": true,
+          "moduleResolution": "node",
+          "importHelpers": true,
+          "target": "es2017",
+          "lib": [ "ES2017", "DOM", "WebWorker" ],
+          "typeRoots": [
+            "node_modules/@types"
+          ],
+          "skipLibCheck": true,
+          "allowSyntheticDefaultImports": true,
+          "paths": {
+            "@ng-wits/core-services": [ "src/app/lib-core-services/src/index.ts" ],
+            "@ng-wits/platform": [ "src/app/lib-platform/src/index.ts" ]
+          }
+        },
+        "angularCompilerOptions": {
+          "fullTemplateTypeCheck": false,
+          "strictInjectionParameters": true
+        },
+        "enableIvy": true,
+        "compilationMode": "partial"
+      }
+      

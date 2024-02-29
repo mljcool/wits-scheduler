@@ -1,0 +1,131 @@
+{
+        "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+        "version": 1,
+        "newProjectRoot": "projects",
+        "projects": {
+          "angular-elements": {
+            "projectType": "application",
+            "schematics": {},
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+              "build": {
+                "builder": "@angular-builders/custom-webpack:browser",
+                "options": {
+                  "outputPath": "dist",
+                  "index": "src/index.html",
+                  "main": "src/main.ts",
+                  "polyfills": "src/polyfills.ts",
+                  "tsConfig": "tsconfig.app.json",
+                  "assets": [
+                    "src/favicon.ico",
+                    "src/assets",
+                    "src/path_to_your_file/app-test.json"
+                  ],
+                  "styles": [
+                    "src/styles.scss"
+                  ],
+                  "scripts": [
+                    "src/scripts/angular.js",
+                    "src/scripts/schedulerCtrl.js"
+                  ]
+                },
+                "configurations": {
+                  "production": {
+                    "budgets": [
+                      {
+                        "type": "initial",
+                        "maximumWarning": "20mb",
+                        "maximumError": "50mb"
+                      },
+                      {
+                        "type": "anyComponentStyle",
+                        "maximumWarning": "20mb",
+                        "maximumError": "50mb"
+                      }
+                    ],
+                    "fileReplacements": [
+                      {
+                        "replace": "src/environments/environment.ts",
+                        "with": "src/environments/environment.prod.ts"
+                      }
+                    ],
+                    "optimization": false,
+                    "outputHashing": "none",
+                    "sourceMap": {
+                      "scripts": true,
+                      "styles": false,
+                      "vendor": false
+                    },
+                    "namedChunks": false,
+                    "aot": true,
+                    "extractLicenses": true,
+                    "vendorChunk": false,
+                    "buildOptimizer": false
+                  },
+                  "debug": {
+                    "optimization": false,
+                    "outputHashing": "none",
+                    "sourceMap": {
+                      "scripts": true,
+                      "styles": false,
+                      "vendor": false
+                    }
+                  },
+                  "development": {
+                    "buildOptimizer": false,
+                    "optimization": false,
+                    "vendorChunk": false,
+                    "extractLicenses": false,
+                    "sourceMap": true,
+                    "namedChunks": false
+                  }
+                },
+                "defaultConfiguration": "production"
+              },
+              "serve": {
+                "builder": "@angular-devkit/build-angular:dev-server",
+                "configurations": {
+                  "production": {
+                    "browserTarget": "angular-elements:build:production",
+                    "ssl": true
+                  },
+                  "development": {
+                    "browserTarget": "angular-elements:build:development",
+                    "ssl": true
+                  }
+                },
+                "defaultConfiguration": "development"
+              },
+              "extract-i18n": {
+                "builder": "ngx-build-plus:extract-i18n",
+                "options": {
+                  "browserTarget": "angular-elements:build"
+                }
+              },
+              "test": {
+                "builder": "ngx-build-plus:karma",
+                "options": {
+                  "main": "src/test.ts",
+                  "polyfills": "src/polyfills.ts",
+                  "tsConfig": "tsconfig.spec.json",
+                  "karmaConfig": "karma.conf.js",
+                  "assets": [
+                    "src/favicon.ico",
+                    "src/assets"
+                  ],
+                  "styles": [
+                    "src/styles.scss"
+                  ],
+                  "scripts": []
+                }
+              }
+            }
+          }
+        },
+        "cli": {
+          "analytics": false
+        }
+      }
+      

@@ -1,0 +1,171 @@
+// Mixins and Placeholders
+@use "sass:math";
+
+@mixin css-reset {
+  // removes default html styles from certain elements
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}
+
+%header-nav-button {
+  border: 2px solid transparent;
+  box-shadow: none;
+  box-sizing: content-box;
+  white-space: nowrap;
+  height: 32px;
+  margin: 8px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 1rem;
+  display: inline-flex;
+  flex: 0 0 100px;
+  align-items: center;
+  justify-content: center;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: transparent;
+    outline: none;
+  }
+
+  .search-link__label,
+  .menu-btn__label {
+    white-space: nowrap;
+  }
+
+  &.dropdown {
+    width: auto;
+    flex-basis: auto;
+  }
+
+  .mat-badge-content {
+    height: 24px;
+    min-height: 24px;
+    width: 24px;
+    min-width: 24px;
+    line-height: 24px;
+    margin-left: 4px;
+    position: static;
+    overflow: visible;
+  }
+}
+
+@mixin avatar-setup($size) {
+  cursor: pointer;
+  height: rem($size);
+  width: rem($size);
+  border-radius: rem($size * 2);
+  overflow: hidden;
+
+  .mat-icon {
+    @include icon-sizing($size + 12px);
+  }
+}
+
+@mixin avatar-override($size) {
+  .avatar-container {
+    .image-wrapper {
+      @include avatar-setup($size);
+    }
+  }
+}
+
+@mixin icon-sizing($size) {
+  height: rem($size);
+  width: rem($size);
+  font-size: rem($size);
+  line-height: rem($size);
+}
+
+// Applies styles to .image-wrapper in avatar component
+// Requires $size to be passed in
+// Reccommend using px only at this time
+// To override for a specific component,
+// utilize avatar-override inside a :host-context block
+
+// Media Queries
+@mixin media-large {
+  // Full screen (>= 1920px)
+  @media screen and (max-width: 1919px) {
+    @content;
+  }
+}
+
+@mixin media-medium {
+  // 1918px <= Screen size >= 1600px
+  @media screen and (max-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin zoom-175 {
+  // targets browser zoom at 175%
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin zoom-200 {
+  // targets browser zoom at 200%
+  @media screen and (max-width: 1000px) {
+    @content;
+  }
+}
+
+// .cdk-visually-hidden for use in media queries
+@mixin visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  outline: 0;
+}
+
+// px to rem conversion functions
+
+$html-font-size: 16px; // should match font-size in styles.scss for <html>
+
+// removes units from values for calculation
+@function stripUnit($value) {
+  @return math.div($value, $value * 0 + 1);
+}
+
+// converts px to rem
+@function rem($pxValue) {
+  @return #{math.div(stripUnit($pxValue), stripUnit($html-font-size))}rem;
+}
+
+// Creates CSS vars using the palette map passed in
+@mixin createThemeVars($palette, $paletteName) {
+  @each $key, $value in $palette {
+    @if type-of($value) == "color" {
+      :root {
+        --theme-#{$paletteName}-#{$key}: #{$value};
+      }
+    } @else if type-of($value) != "color" {
+      @if type-of($value) != "null" {
+        @each $contrast_key, $contrast_value in $value {
+          :root {
+            --theme-#{$paletteName}-#{$contrast_key}-contrast: #{$contrast_value};
+          }
+        }
+      }
+    }
+  }
+}

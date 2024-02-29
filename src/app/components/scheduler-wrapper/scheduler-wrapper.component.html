@@ -1,0 +1,15 @@
+<h2>App Scheduler</h2>
+
+<app-scheduler [events]="events"
+               [users]="users"
+               [viewDate]="viewDate"
+               [canMoveAppointments]="canMoveAppointments"
+               [interval]="interval"
+               [defaultView]="defaultView"
+               (daySelectedChange)="emitEvent($event, 'daySelectedChange')"
+               (eventActionPerformed)="emitEvent($event, 'eventActionPerformed')"
+               (viewDateChanged)="emitEvent($event, 'viewDateChanged')">
+</app-scheduler>
+
+
+ <!-- <mwl-demo-component></mwl-demo-component> -->

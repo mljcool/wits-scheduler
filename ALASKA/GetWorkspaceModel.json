@@ -1,0 +1,930 @@
+{
+        "$type": "Wits.Service.CommonModule.ViewModelResponse`1[[Wits.Service.SchedulerModule.Model.SchedulerWorkspaceModel, Wits.Service]], Wits.Service",
+        "hideExportButton": false,
+        "metaData": {
+            "system.Object, mscorlib": {
+                "default": {
+                    "classMetadataItems": {
+                        "displayName": "Object",
+                        "$type": "System.Object, mscorlib",
+                        "templateType": "Object",
+                        "requestModelName": "Object"
+                    }
+                }
+            },
+            "wits.Service.CommonModule.Primitive.ILookupModelSpecifier, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "displayName": "I Lookup Model Specifier",
+                        "$type": "Wits.Service.CommonModule.Primitive.ILookupModelSpecifier, Wits.Service",
+                        "templateType": "Object",
+                        "requestModelName": "ILookupModelSpecifier"
+                    }
+                }
+            },
+            "wits.Service.CommonModule.Primitive.LookupModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "hideDisplayNameFor": [
+                            "DisplayMode"
+                        ],
+                        "isLookupModel": true,
+                        "displayName": "Lookup Model",
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "templateType": "Object",
+                        "requestModelName": "Lookup"
+                    },
+                    "propertyMetadataItems": {
+                        "description": {
+                            "displayName": "Description",
+                            "templateType": "String"
+                        },
+                        "disabled": {
+                            "displayName": "Disabled",
+                            "templateType": "Boolean"
+                        },
+                        "key": {
+                            "displayName": "Key",
+                            "templateType": "String"
+                        }
+                    }
+                }
+            },
+            "wits.Service.SchedulerModule.Model.AddEditAppointmentModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "listen": {
+                            "Names": [
+                                "SchedulerModule.Workspace.AppointmentTypeChanged",
+                                "SchedulerModule.Workspace.ClientChanged"
+                            ],
+                            "Action": "Refresh"
+                        },
+                        "displayName": "Add Edit Appointment Model",
+                        "$type": "Wits.Service.SchedulerModule.Model.AddEditAppointmentModel, Wits.Service",
+                        "templateType": "Object",
+                        "requestModelName": "AddEditAppointment"
+                    },
+                    "propertyMetadataItems": {
+                        "appointmentType": {
+                            "displayOrder": 1,
+                            "lookup": "Wits.Domain.SchedulerModule.Vocabulary.AppointmentType",
+                            "required": true,
+                            "event": {
+                                "Name": "SchedulerModule.Workspace.AppointmentTypeChanged",
+                                "Scope": "EditAppointmentModal",
+                                "Trigger": "Change"
+                            },
+                            "displayName": "Appointment Type",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "client": {
+                            "displayOrder": 8,
+                            "lookup": "GetClients",
+                            "listen": {
+                                "Names": [
+                                    "SchedulerModule.Workspace.AppointmentTypeChanged"
+                                ],
+                                "Action": "Clear"
+                            },
+                            "event": {
+                                "Name": "SchedulerModule.Workspace.ClientChanged",
+                                "Scope": "Item",
+                                "Trigger": "Change"
+                            },
+                            "displayName": "Client",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "contractingAgency": {
+                            "displayOrder": 9,
+                            "lookup": "GetContractingAgencies",
+                            "listen": {
+                                "Names": [
+                                    "SchedulerModule.Workspace.AppointmentTypeChanged"
+                                ],
+                                "Action": "Clear"
+                            },
+                            "displayName": "Contracting Agency",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "description": {
+                            "displayOrder": 5,
+                            "templateType": "MultilineText",
+                            "displayName": "Description"
+                        },
+                        "endDate": {
+                            "displayOrder": 4,
+                            "required": true,
+                            "displayName": "End Date",
+                            "dataType": "Date",
+                            "templateType": "Date"
+                        },
+                        "endTime": {
+                            "displayOrder": 4,
+                            "required": true,
+                            "displayName": "End Time",
+                            "templateType": "Time",
+                            "dataType": "Date"
+                        },
+                        "modality": {
+                            "displayOrder": 10,
+                            "lookup": "GetModalityTypes",
+                            "templateType": "Lookup",
+                            "listen": {
+                                "Names": [
+                                    "SchedulerModule.Workspace.AppointmentTypeChanged"
+                                ],
+                                "Action": "Clear"
+                            },
+                            "displayName": "Modality",
+                            "$type": "Wits.Service.SchedulerModule.Model.ModalityTypeLookupModel, Wits.Service"
+                        },
+                        "clientPhone": {
+                            "readOnly": true,
+                            "displayOrder": 4,
+                            "templateType": "MultilineText",
+                            "displayName": "Client Phone"
+                        },
+                        "procedure": {
+                            "displayOrder": 7,
+                            "lookup": "GetServiceList",
+                            "templateType": "Lookup",
+                            "listen": {
+                                "Names": [
+                                    "SchedulerModule.Workspace.AppointmentTypeChanged"
+                                ],
+                                "Action": "Clear"
+                            },
+                            "displayName": "Service",
+                            "$type": "Wits.Service.SchedulerModule.Model.ServiceLookupModel, Wits.Service"
+                        },
+                        "group": {
+                            "displayOrder": 7,
+                            "lookup": "GetGroupProfileList",
+                            "listen": {
+                                "Names": [
+                                    "SchedulerModule.Workspace.AppointmentTypeChanged"
+                                ],
+                                "Action": "Clear"
+                            },
+                            "displayName": "Group",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "scheduleEventType": {
+                            "displayOrder": 6,
+                            "lookup": "Wits.Domain.SchedulerModule.Vocabulary.ScheduleEventType",
+                            "displayName": "Schedule Event Type",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "staff": {
+                            "displayOrder": 8,
+                            "lookup": "GetStaffMembersForAddModal",
+                            "required": true,
+                            "displayName": "Staff",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "startDate": {
+                            "displayOrder": 3,
+                            "required": true,
+                            "displayName": "Start Date",
+                            "dataType": "Date",
+                            "templateType": "Date"
+                        },
+                        "startTime": {
+                            "displayOrder": 3,
+                            "required": true,
+                            "displayName": "Start Time",
+                            "templateType": "Time",
+                            "dataType": "Date"
+                        },
+                        "status": {
+                            "displayOrder": 2,
+                            "lookup": "Wits.Domain.SchedulerModule.Vocabulary.AppointmentStatus",
+                            "required": true,
+                            "displayName": "Status",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "summary": {
+                            "displayOrder": 0,
+                            "displayName": "Summary",
+                            "templateType": "String"
+                        },
+                        "currentSelectedAgency": {
+                            "hidden": true,
+                            "displayName": "Current Selected Agency",
+                            "templateType": "Number"
+                        },
+                        "contractingAgencyClientKey": {
+                            "hidden": true,
+                            "listen": {
+                                "Names": [
+                                    "SchedulerModule.Workspace.AppointmentTypeChanged"
+                                ],
+                                "Action": "Clear"
+                            },
+                            "displayName": "Contracting Agency Client Key",
+                            "templateType": "Number"
+                        },
+                        "appointmentRecurrenceKey": {
+                            "hidden": true,
+                            "displayName": "Appointment Recurrence Key",
+                            "$type": "System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib",
+                            "templateType": "Object"
+                        },
+                        "key": {
+                            "hiddenFor": [
+                                "DisplayMode",
+                                "EditMode",
+                                "AddMode"
+                            ],
+                            "hidden": true,
+                            "displayName": "Key",
+                            "templateType": "String"
+                        }
+                    }
+                }
+            },
+            "wits.Service.SchedulerModule.Model.AppointmentFilterModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "listen": {
+                            "Names": [
+                                "SchedulerModule.Workspace.AgencyChanged"
+                            ],
+                            "Action": "Refresh"
+                        },
+                        "displayName": "Appointment Filter Model",
+                        "$type": "Wits.Service.SchedulerModule.Model.AppointmentFilterModel, Wits.Service",
+                        "templateType": "Object",
+                        "requestModelName": "AppointmentFilter"
+                    },
+                    "propertyMetadataItems": {
+                        "agency": {
+                            "lookup": "GetAgencies",
+                            "event": {
+                                "Name": "SchedulerModule.Workspace.AgencyChanged",
+                                "Scope": "Item",
+                                "Trigger": "Change"
+                            },
+                            "displayName": "Agency",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "staffMembers": {
+                            "lookup": "GetStaffMembers",
+                            "templateType": "Multiselect",
+                            "event": {
+                                "Name": "SchedulerModule.Workspace.StaffMembersChanged",
+                                "Scope": "Item",
+                                "Trigger": "Change"
+                            },
+                            "displayName": "Staff Members",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service"
+                        },
+                        "interval": {
+                            "displayOrder": 3,
+                            "lookup": "Wits.Domain.SchedulerModule.Vocabulary.AppointmentInterval",
+                            "event": {
+                                "Name": "SchedulerModule.Workspace.IntervalChanged",
+                                "Scope": "Item",
+                                "Trigger": "Change"
+                            },
+                            "displayName": "Interval",
+                            "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "selectedDate": {
+                            "hidden": true,
+                            "displayName": "Selected Date",
+                            "dataType": "Date",
+                            "templateType": "Date"
+                        },
+                        "dayBuffer": {
+                            "hidden": true,
+                            "displayName": "Day Buffer",
+                            "templateType": "Number"
+                        }
+                    }
+                }
+            },
+            "wits.Service.SchedulerModule.Model.AppointmentModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "displayName": "Appointment Model",
+                        "$type": "Wits.Service.SchedulerModule.Model.AppointmentModel, Wits.Service",
+                        "templateType": "Object",
+                        "requestModelName": "Appointment"
+                    },
+                    "propertyMetadataItems": {
+                        "allDay": {
+                            "displayName": "All Day",
+                            "templateType": "Boolean"
+                        },
+                        "color": {
+                            "displayName": "Color",
+                            "$type": "Wits.Service.SchedulerModule.Model.ColorModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "draggable": {
+                            "displayName": "Draggable",
+                            "templateType": "Boolean"
+                        },
+                        "end": {
+                            "displayName": "End",
+                            "dataType": "Date",
+                            "templateType": "Date"
+                        },
+                        "id": {
+                            "displayName": "Id",
+                            "templateType": "String"
+                        },
+                        "meta": {
+                            "displayName": "Meta",
+                            "$type": "System.Object, mscorlib",
+                            "templateType": "Object"
+                        },
+                        "resizable": {
+                            "displayName": "Resizable",
+                            "$type": "Wits.Service.SchedulerModule.Model.ResizableModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "start": {
+                            "displayName": "Start",
+                            "dataType": "Date",
+                            "templateType": "Date"
+                        },
+                        "title": {
+                            "displayName": "Title",
+                            "templateType": "String"
+                        },
+                        "key": {
+                            "hiddenFor": [
+                                "DisplayMode",
+                                "EditMode",
+                                "AddMode"
+                            ],
+                            "hidden": true,
+                            "displayName": "Key",
+                            "templateType": "String"
+                        }
+                    }
+                }
+            },
+            "wits.Service.SchedulerModule.Model.ColorModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "displayName": "Color Model",
+                        "$type": "Wits.Service.SchedulerModule.Model.ColorModel, Wits.Service",
+                        "templateType": "Object",
+                        "requestModelName": "Color"
+                    },
+                    "propertyMetadataItems": {
+                        "primary": {
+                            "displayName": "Primary",
+                            "templateType": "String"
+                        },
+                        "secondary": {
+                            "displayName": "Secondary",
+                            "templateType": "String"
+                        }
+                    }
+                }
+            },
+            "wits.Service.SchedulerModule.Model.ModalityTypeLookupModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "displayName": "Modality",
+                        "requestModelName": "Modality",
+                        "hideDisplayNameFor": [
+                            "DisplayMode",
+                            "AddMode",
+                            "EditMode"
+                        ],
+                        "isLookupModel": true,
+                        "$type": "Wits.Service.SchedulerModule.Model.ModalityTypeLookupModel, Wits.Service",
+                        "templateType": "Object"
+                    },
+                    "propertyMetadataItems": {
+                        "modalityTypeCode": {
+                            "displayName": "Modality Type Code",
+                            "templateType": "String"
+                        },
+                        "description": {
+                            "displayName": "Description",
+                            "templateType": "String"
+                        },
+                        "disabled": {
+                            "displayName": "Disabled",
+                            "templateType": "Boolean"
+                        },
+                        "key": {
+                            "displayName": "Key",
+                            "templateType": "String"
+                        }
+                    }
+                }
+            },
+            "wits.Service.SchedulerModule.Model.ResizableModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "displayName": "Resizable Model",
+                        "$type": "Wits.Service.SchedulerModule.Model.ResizableModel, Wits.Service",
+                        "templateType": "Object",
+                        "requestModelName": "Resizable"
+                    },
+                    "propertyMetadataItems": {
+                        "beforeEnd": {
+                            "displayName": "Before End",
+                            "templateType": "Boolean"
+                        },
+                        "beforeStart": {
+                            "displayName": "Before Start",
+                            "templateType": "Boolean"
+                        }
+                    }
+                }
+            },
+            "wits.Service.SchedulerModule.Model.SchedulerWorkspaceModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "displayName": "Scheduler Workspace Model",
+                        "$type": "Wits.Service.SchedulerModule.Model.SchedulerWorkspaceModel, Wits.Service",
+                        "templateType": "Object",
+                        "requestModelName": "SchedulerWorkspace"
+                    },
+                    "propertyMetadataItems": {
+                        "addEditAppointmentModel": {
+                            "displayName": "Add Edit Appointment Model",
+                            "$type": "Wits.Service.SchedulerModule.Model.AddEditAppointmentModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "appointment": {
+                            "displayName": "Appointment",
+                            "$type": "Wits.Service.SchedulerModule.Model.AppointmentModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "defaultView": {
+                            "displayName": "Default View",
+                            "templateType": "String"
+                        },
+                        "filterModel": {
+                            "displayName": "Filter Model",
+                            "$type": "Wits.Service.SchedulerModule.Model.AppointmentFilterModel, Wits.Service",
+                            "templateType": "Object"
+                        },
+                        "lookups": {
+                            "displayName": "Lookups",
+                            "$type": "System.Collections.Generic.IDictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[Wits.Service.CommonModule.Primitive.ILookupModelSpecifier, Wits.Service, Version=22.9.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib",
+                            "templateType": "Object"
+                        },
+                        "canMoveAppointments": {
+                            "displayName": "Can Move Appointments",
+                            "templateType": "Boolean"
+                        }
+                    }
+                }
+            },
+            "wits.Service.SchedulerModule.Model.ServiceLookupModel, Wits.Service": {
+                "default": {
+                    "classMetadataItems": {
+                        "displayName": "Service",
+                        "requestModelName": "Service",
+                        "hideDisplayNameFor": [
+                            "DisplayMode",
+                            "AddMode",
+                            "EditMode"
+                        ],
+                        "isLookupModel": true,
+                        "$type": "Wits.Service.SchedulerModule.Model.ServiceLookupModel, Wits.Service",
+                        "templateType": "Object"
+                    },
+                    "propertyMetadataItems": {
+                        "cptCode": {
+                            "displayName": "Cpt Code",
+                            "templateType": "String"
+                        },
+                        "description": {
+                            "displayName": "Description",
+                            "templateType": "String"
+                        },
+                        "disabled": {
+                            "displayName": "Disabled",
+                            "templateType": "Boolean"
+                        },
+                        "key": {
+                            "displayName": "Key",
+                            "templateType": "String"
+                        }
+                    }
+                }
+            }
+        },
+        "model": {
+            "$type": "Wits.Service.SchedulerModule.Model.SchedulerWorkspaceModel, Wits.Service",
+            "addEditAppointmentModel": {
+                "$type": "Wits.Service.SchedulerModule.Model.AddEditAppointmentModel, Wits.Service",
+                "currentSelectedAgency": 1,
+                "metadataKey": "1aac95f7-a5a5-4bf8-9f58-998ddabe25be"
+            },
+            "appointment": {
+                "$type": "Wits.Service.SchedulerModule.Model.AppointmentModel, Wits.Service",
+                "allDay": false,
+                "color": {
+                    "$type": "Wits.Service.SchedulerModule.Model.ColorModel, Wits.Service",
+                    "primary": "#298DF2",
+                    "secondary": "#EBF5FE"
+                },
+                "draggable": true,
+                "end": "2024-02-27T19:30:00Z",
+                "id": "4ed55ea4-118b-4887-8b4a-b123015e5ee7",
+                "meta": {
+                    "$type": "<>f__AnonymousType100`1[[<>f__AnonymousType101`4[[System.Guid, mscorlib],[System.String, mscorlib],[System.Boolean, mscorlib],[System.String, mscorlib]], Wits.Service]], Wits.Service",
+                    "user": {
+                        "$type": "<>f__AnonymousType101`4[[System.Guid, mscorlib],[System.String, mscorlib],[System.Boolean, mscorlib],[System.String, mscorlib]], Wits.Service",
+                        "id": "76887d3f-6d8d-4c2c-bffa-a73f00e96bc3",
+                        "name": "Webb2, David",
+                        "showInitials": false,
+                        "initials": "DW"
+                    }
+                },
+                "start": "2024-02-27T19:00:00Z",
+                "title": "Client: 10567, Test, Status: Scheduled, Service: test 3",
+                "metadataKey": "b7621b06-130d-44bf-adca-d1f81a66bf9c"
+            },
+            "defaultView": "Month",
+            "filterModel": {
+                "$type": "Wits.Service.SchedulerModule.Model.AppointmentFilterModel, Wits.Service",
+                "agency": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                    "description": "State of Alaska",
+                    "disabled": false,
+                    "key": "1",
+                    "metadataKey": "2cc63210-e0a2-47cf-ba0e-2e5f74d648de"
+                },
+                "staffMembers": [
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Webb2, David",
+                        "disabled": false,
+                        "key": "76887d3f-6d8d-4c2c-bffa-a73f00e96bc3",
+                        "metadataKey": "71bcf943-fd29-4e8b-aa2c-7d4c872e5de8"
+                    }
+                ],
+                "interval": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                    "description": "30 minutes",
+                    "disabled": false,
+                    "key": "2",
+                    "metadataKey": "6420cf07-06c3-4f06-b6ee-d8bc666ec2f4"
+                },
+                "selectedDate": "0001-01-01T00:00:00Z",
+                "dayBuffer": 0,
+                "metadataKey": "c40c8b05-74a5-482a-848d-ee7716fb2ad8"
+            },
+            "lookups": {
+                "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Wits.Service.CommonModule.Primitive.ILookupModelSpecifier, Wits.Service]], mscorlib",
+                "wits.Domain.SchedulerModule.Vocabulary.AppointmentInterval": [
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "10 minutes",
+                        "disabled": false,
+                        "key": "6",
+                        "metadataKey": "4ea1b281-7c22-4fea-864d-0d4361a5065a"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "15 minutes",
+                        "disabled": false,
+                        "key": "4",
+                        "metadataKey": "ced8da11-b664-40d1-aa97-9a3d91659675"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "20 minutes",
+                        "disabled": false,
+                        "key": "3",
+                        "metadataKey": "ebe2ddc5-b0e1-4963-b0f5-0eaf982168b9"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "30 minutes",
+                        "disabled": false,
+                        "key": "2",
+                        "metadataKey": "e9dfe883-60b0-4888-b428-83a5c3f5105f"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "60 minutes",
+                        "disabled": false,
+                        "key": "1",
+                        "metadataKey": "c3d2f11e-1281-47f0-9a08-99d0a5546985"
+                    }
+                ],
+                "wits.Domain.SchedulerModule.RecurrenceType": [
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Daily",
+                        "disabled": false,
+                        "key": "Daily",
+                        "metadataKey": "01f17a9b-34a7-4d5f-bec4-9c47aeac9118"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Weekly",
+                        "disabled": false,
+                        "key": "Weekly",
+                        "metadataKey": "43330df6-155c-4527-9017-d83d0bd0ade8"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Monthly",
+                        "disabled": false,
+                        "key": "Monthly",
+                        "metadataKey": "532b5c4f-aa4d-4bc4-a8a8-2f3982743b45"
+                    }
+                ],
+                "wits.Domain.SchedulerModule.Vocabulary.AppointmentStatus": [
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Canceled",
+                        "disabled": false,
+                        "key": "2600.3",
+                        "metadataKey": "826c795f-907c-4892-a54a-453d579d72c7"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Complete",
+                        "disabled": false,
+                        "key": "2600.4",
+                        "metadataKey": "80724569-9c69-48ac-8f0a-b77f6541c525"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Confirmed",
+                        "disabled": false,
+                        "key": "2600.1",
+                        "metadataKey": "ef06d26f-6b82-4cbd-b25d-7d6bd99d54aa"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Kept appointment",
+                        "disabled": false,
+                        "key": "2600.2",
+                        "metadataKey": "ff8aaa6f-f814-4d3e-a4e2-d79c1938fed2"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "No Show",
+                        "disabled": false,
+                        "key": "2600.6",
+                        "metadataKey": "1a79c986-19a2-4532-9b44-3ea83d12ad42"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Not kept appointment",
+                        "disabled": false,
+                        "key": "2600.5",
+                        "metadataKey": "61c81d04-f72e-427e-b65a-8e81d1493e93"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Other",
+                        "disabled": false,
+                        "key": "2600.7",
+                        "metadataKey": "46899a13-fa20-470e-af4d-2bfafb63b748"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Priority Placement",
+                        "disabled": false,
+                        "key": "2600.8",
+                        "metadataKey": "cdeaa0de-2c99-4aaa-85c2-0fc64b0918ef"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Rescheduled",
+                        "disabled": false,
+                        "key": "2600.10",
+                        "metadataKey": "1341c780-231f-4cc3-bef8-0c7d8cd0aeeb"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Rescheduled by client",
+                        "disabled": false,
+                        "key": "2600.9",
+                        "metadataKey": "3a556c42-509a-48e7-81f4-a315cd2c6ae7"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Rescheduled by staff",
+                        "disabled": false,
+                        "key": "2600.11",
+                        "metadataKey": "e61c37d1-a2a0-4461-806b-01c26a9a4071"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Reserved For Contracting Agency",
+                        "disabled": false,
+                        "key": "2600.12",
+                        "metadataKey": "bec2e216-b905-4ea6-b473-5565cf728584"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Scheduled",
+                        "disabled": false,
+                        "key": "2600.13",
+                        "metadataKey": "9c9878d0-0554-4290-a2d1-4a2448a5e311"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Undetermined",
+                        "disabled": false,
+                        "key": "2600.14",
+                        "metadataKey": "dad55394-a289-4f85-b21b-c301e2f9d980"
+                    }
+                ],
+                "wits.Domain.SchedulerModule.Vocabulary.AppointmentType": [
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Normal",
+                        "disabled": false,
+                        "key": "2601.4",
+                        "metadataKey": "3b90a2fe-68d4-4bd0-b136-6f98c5d400a0"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Reserved",
+                        "disabled": false,
+                        "key": "2601.2",
+                        "metadataKey": "bdf12052-b665-4cb3-95fa-b043e224e5a0"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Scheduled Client",
+                        "disabled": false,
+                        "key": "2601.3",
+                        "metadataKey": "9a86146b-f10e-4dcc-9b36-ebcd56d56644"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Scheduled Group",
+                        "disabled": false,
+                        "key": "2601.1",
+                        "metadataKey": "aba0ddbd-bd93-4386-9c71-6bbbfdd89f5d"
+                    }
+                ],
+                "wits.Domain.SchedulerModule.Vocabulary.ScheduleEventType": [
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Administrative",
+                        "disabled": false,
+                        "key": "2602.2",
+                        "metadataKey": "5bf7cea0-f773-4813-a6f1-a7ca4dd02259"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Administrative (notes, etc)",
+                        "disabled": false,
+                        "key": "2602.3",
+                        "metadataKey": "9e2eb309-0530-4ca9-80af-2e105ff2cfe0"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Assessment",
+                        "disabled": false,
+                        "key": "2602.4",
+                        "metadataKey": "244ce36a-7f9f-42b5-9483-aae2929e7303"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "BT or RT Follow-up",
+                        "disabled": false,
+                        "key": "2602.5",
+                        "metadataKey": "55ca94dd-76ad-4e70-89bc-d56c24ba9a1c"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Group",
+                        "disabled": false,
+                        "key": "2602.6",
+                        "metadataKey": "145227e5-ba6a-4e8c-bf3a-1cbbb3464ccd"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Group Clinical Supervision",
+                        "disabled": false,
+                        "key": "2602.7",
+                        "metadataKey": "4c499147-8af7-468e-9cbb-63ad63cb69b1"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Individual Clinical Supervision",
+                        "disabled": false,
+                        "key": "2602.8",
+                        "metadataKey": "061ebdd7-993b-4d74-b8a5-4256d549120f"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Individual Session",
+                        "disabled": false,
+                        "key": "2602.9",
+                        "metadataKey": "c6853ab0-29f6-46f7-8cd0-4796fd186178"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "MH Admission Appointment",
+                        "disabled": false,
+                        "key": "2602.1",
+                        "metadataKey": "d8de1e71-95ca-4be0-8f7c-2b0211c9d1a3"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Other",
+                        "disabled": false,
+                        "key": "2602.10",
+                        "metadataKey": "1406f9c4-a1e2-4b10-b4b1-7910993e2966"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Personal Time Off",
+                        "disabled": false,
+                        "key": "2602.12",
+                        "metadataKey": "dc258110-cff7-4958-9815-3b9276be15e0"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Personnel",
+                        "disabled": false,
+                        "key": "2602.11",
+                        "metadataKey": "4335afc6-b065-486e-998d-85a455c6450a"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Staffing",
+                        "disabled": false,
+                        "key": "2602.13",
+                        "metadataKey": "56d9ee64-9194-4341-a4dc-12018189dd50"
+                    },
+                    {
+                        "$type": "Wits.Service.CommonModule.Primitive.LookupModel, Wits.Service",
+                        "description": "Treatment",
+                        "disabled": false,
+                        "key": "2602.14",
+                        "metadataKey": "91c0f92a-2c90-4d58-bba3-8444dd7d9aa8"
+                    }
+                ],
+                "getAgencies": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModelRequestSpecifier, Wits.Service",
+                    "isPagable": true,
+                    "requestUrl": "https://localhost:44313/view/SchedulerModule/Workspace/4ed55ea4-118b-4887-8b4a-b123015e5ee7/GetAgencies"
+                },
+                "getContractingAgencies": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModelRequestSpecifier, Wits.Service",
+                    "isPagable": true,
+                    "requestUrl": "https://localhost:44313/view/SchedulerModule/Workspace/4ed55ea4-118b-4887-8b4a-b123015e5ee7/GetContractingAgencies"
+                },
+                "getStaffMembers": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModelRequestSpecifier, Wits.Service",
+                    "isPagable": true,
+                    "requestUrl": "https://localhost:44313/view/SchedulerModule/Workspace/4ed55ea4-118b-4887-8b4a-b123015e5ee7/GetStaffMembers"
+                },
+                "getStaffMembersForAddModal": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModelRequestSpecifier, Wits.Service",
+                    "isPagable": true,
+                    "requestUrl": "https://localhost:44313/view/SchedulerModule/Workspace/4ed55ea4-118b-4887-8b4a-b123015e5ee7/GetStaffMembersForAddModal"
+                },
+                "getClients": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModelRequestSpecifier, Wits.Service",
+                    "isPagable": true,
+                    "requestUrl": "https://localhost:44313/view/SchedulerModule/Workspace/4ed55ea4-118b-4887-8b4a-b123015e5ee7/GetClients"
+                },
+                "getServiceList": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModelRequestSpecifier, Wits.Service",
+                    "isPagable": true,
+                    "requestUrl": "https://localhost:44313/view/SchedulerModule/Workspace/4ed55ea4-118b-4887-8b4a-b123015e5ee7/GetServiceList"
+                },
+                "getModalityTypes": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModelRequestSpecifier, Wits.Service",
+                    "isPagable": true,
+                    "requestUrl": "https://localhost:44313/view/SchedulerModule/Workspace/4ed55ea4-118b-4887-8b4a-b123015e5ee7/GetModalityTypes"
+                },
+                "getGroupProfileList": {
+                    "$type": "Wits.Service.CommonModule.Primitive.LookupModelRequestSpecifier, Wits.Service",
+                    "isPagable": true,
+                    "requestUrl": "https://localhost:44313/view/SchedulerModule/Workspace/4ed55ea4-118b-4887-8b4a-b123015e5ee7/GetGroupProfileList"
+                }
+            },
+            "canMoveAppointments": true,
+            "metadataKey": "66e81322-0474-4005-82ab-18ecd092f744"
+        },
+        "refreshModel": false,
+        "hasError": false,
+        "responseMessages": []
+    }

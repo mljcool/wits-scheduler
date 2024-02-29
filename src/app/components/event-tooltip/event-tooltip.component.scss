@@ -1,0 +1,35 @@
+@import '../../../colors.scss';
+
+.event-tooltip-content {
+  padding: 10px;
+}
+
+.actions {
+  float: right;
+
+  .mat-icon-button {
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+  }
+}
+
+hr {
+  color: $neutral-100;
+}
+
+.user-name {
+  font-size: 12px;
+  padding: 10px;
+}
+
+.event-title {
+  font-size: 14px;
+  padding: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-tooltip-content {
+  min-width: 200px;
+}

@@ -1,0 +1,27 @@
+<div class="actions">
+        <button mat-icon-button aria-label="Edit" (click)="raiseEditEvent(event)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="event.draggable" mat-icon-button aria-label="Delete" (click)="raiseDeleteEvent(event)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Close" (click)="raiseCloseEvent()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+      <div class="event-tooltip-content">
+        <div class="event-info-container">
+          <div class="user-name">{{event.meta.user.name}}</div>
+          <div class="event-title">{{event.title}}</div>
+        </div>
+        <hr>
+        <div class="move-appointment" *ngIf="canMoveAppointments" (click)="detectChanges();$event.stopPropagation()">
+          <mat-form-field appearance="fill">
+            <mat-label>Move Appointment to</mat-label>
+            <mat-select [(value)]="selectedUserId" (selectionChange)="userSelected()" (openedChange)="detectChanges()">
+              <mat-option [value]="user.id" *ngFor="let user of users">{{ user.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      
